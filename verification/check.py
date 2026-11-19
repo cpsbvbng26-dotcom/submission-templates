@@ -23,7 +23,9 @@ from rules import add, jload, sub  # noqa: E402
 
 PROSE = ["README.md", "README.en.md"]
 VENUES = ("figshare", "sophaxis", "ssrn", "philarchive", "zenodo")
-MARKS = ("場の頁で確かめた", "記憶による")
+MARKS = ("場の頁で確かめた", "運営者の記録による", "記憶による")
+# A field marked 運営者の記録による names, in brackets, the repository and the file of the record.
+RECORD_MARK = re.compile(r"^確かめ：運営者の記録による（[^）]*\b[a-z0-9]+(?:-[a-z0-9]+)+ の [\w./-]+\.(?:md|json|toml|yml)")
 EMAIL_FIELD = "（本人のものを入力）"
 CACHE = "verification/cache/registry.json"
 DOI = re.compile(r"10\.\d{4,9}/[^\s)（）、,;`\"]+", re.I)
@@ -99,7 +101,9 @@ def templates(F):
         for name, rest in sections(t):
             marks = [line for line in rest.split("\n") if line.startswith("確かめ：")]
             if len(marks) != 1 or not marks[0][4:].startswith(MARKS):
-                bad.append("%s %s: one mark, 場の頁で確かめた or 記憶による" % (f, name))
+                bad.append("%s %s: one mark, 場の頁で確かめた, 運営者の記録による or 記憶による" % (f, name))
+            elif marks[0][4:].startswith("運営者の記録による") and not RECORD_MARK.match(marks[0]):
+                bad.append("%s %s: 運営者の記録による without the repository and the file of the record" % (f, name))
             if "Email" in name and EMAIL_FIELD not in rest:
                 bad.append("%s %s: an e-mail field without %s" % (f, name, EMAIL_FIELD))
         for m in re.finditer(r"\{\{[^}]*\}\}|\{\{|\}\}", t):
@@ -179,6 +183,24 @@ def registry_cached(F):
     return bad
 
 
+def readme_venues(F):
+    """Each README has a table of the venues whose links are, venue by venue, the fields, the steps and every example
+    on disk, and nothing else."""
+    bad = []
+    want = {f for f in F if re.fullmatch(r"venues/[a-z]+/(fields\.md|steps\.md|examples/[a-z0-9.-]+\.md)", f)}
+    for f in ("README.md", "README.en.md"):
+        rows = [line for line in F.get(f, "").split("\n") if line.startswith("| ") and "](./venues/" in line]
+        got = set()
+        for row in rows:
+            links = re.findall(r"\]\(\./(venues/[^)]+)\)", row)
+            if len({x.split("/")[1] for x in links}) != 1:
+                bad.append(f + ": a row of the venue table links more than one venue")
+            got |= set(links)
+        if len(rows) != len(VENUES) or got != want:
+            bad.append(f + ": the venue table does not link every template, steps and example, and nothing else")
+    return bad
+
+
 COUNTERS = {
     "venues": lambda F: len({f.split("/")[1] for f in F if f.startswith("venues/")}),
     "examples": lambda F: len((jload(F, "verification/examples.json") or {"examples": []})["examples"]),
@@ -187,11 +209,11 @@ COUNTERS = {
 
 CHECKS = [
     ("One folder per venue, each with fields, steps and at least one example", layout),
-    ("Every template field is marked 場の頁で確かめた or 記憶による, has the fixed disclosure block, asks for an e-mail only as （本人のものを入力）, and uses well-formed placeholders", templates),
+    ("Every template field is marked 場の頁で確かめた, 運営者の記録による (naming the record) or 記憶による, has the fixed disclosure block, asks for an e-mail only as （本人のものを入力）, and uses well-formed placeholders", templates),
     ("Every filled example is listed, is the copy that was made, discloses the language model, and lists every DOI it names with its source", examples),
     ("Every DOI in a filled example resolves at Crossref or DataCite with the title and first author listed (cached; --online fetches again)", registry_cached),
     ("Copies of the canonical files and the licences are byte-identical (sha256)", rules.copies),
-    ("No university name, other place of creative work, self-title, item of rule 10 or single relative", rules.words_not_written),
+    ("No name of the operator's own university in any spelling, other place of creative work, self-title, item of rule 10 or single relative", rules.words_not_written),
     ("No e-mail address in any file", rules.no_email),
     ("Workflows: actions pinned to commits, permissions, timeouts; Dependabot", rules.workflows),
     ("labels.yml makes the labels of the canonical workflows", lambda F: rules.labels(F)),
@@ -199,6 +221,7 @@ CHECKS = [
     ("The writing rules: です/ます, no second person, no bold, one dash per paragraph, short sentences", lambda F: rules.prose(F, PROSE)),
     ("Every number in prose is in the ledger of numbers, and every count matches the files", lambda F: rules.numbers(F, PROSE, COUNTERS)),
     ("README.md and README.en.md link each other, disclose the language model and name the licences", rules.readme_pair),
+    ("Both READMEs have the venue table, linking every template, steps and example", readme_venues),
 ]
 
 
@@ -254,7 +277,8 @@ BREAKS = [
     (C[0], "a venue without steps", lambda G: G.pop("venues/zenodo/steps.md")),
     (C[0], "a sixth venue", add("venues/osf/fields.md", "# OSF\n")),
     (C[1], "a field without a mark", sub(FIG, "## Keywords\n\n確かめ：記憶による（必須）\n", "## Keywords\n\n")),
-    (C[1], "a mark outside the two", sub(FIG, "## Funding\n\n確かめ：記憶による", "## Funding\n\n確かめ：たぶん")),
+    (C[1], "a mark outside the three", sub(FIG, "## Funding\n\n確かめ：記憶による", "## Funding\n\n確かめ：たぶん")),
+    (C[1], "運営者の記録による without the record it names", sub("venues/ssrn/fields.md", "確かめ：運営者の記録による（Philosophy Research Network の Continental Philosophy だけ。原論文の区分として、cpsbvbng26-dotcom の docs/external-evaluations.md の「出した分野」にある。", "確かめ：運営者の記録による（Philosophy Research Network の Continental Philosophy だけ。原論文の区分として、記録にある。")),
     (C[1], "the disclosure block changed in one template", sub("venues/ssrn/fields.md", "The author is responsible for the content. Claude is not an author.", "The author is responsible for the content.")),
     (C[1], "an e-mail field with something else in it", sub("venues/ssrn/fields.md", "（本人のものを入力）", "（あとで書く）")),
     (C[1], "a malformed placeholder", sub(FIG, "{{TITLE}}", "{{title}}")),
@@ -266,7 +290,11 @@ BREAKS = [
     (C[3], "a listed first author that differs", sub("verification/examples.json", '"title": "The Hausdorff dimension of the survivor set", "first_author": "Kuang"', '"title": "The Hausdorff dimension of the survivor set", "first_author": "Xiao"')),
     (C[3], "a prefix match turned exact on a longer title", sub("verification/examples.json", '"match": "prefix"', '"match": "exact"')),
     (C[4], "one character of error-report.yml", sub(".github/ISSUE_TEMPLATE/error-report.yml", "誤りの知らせ", "誤りのお知らせ")),
+    (C[4], "the note on the copies says the cross-repository check compares them", sub("verification/copies.json", "いま正本と写しを突き合わせるのは、このリポジトリの検査（verification/rules.py の copies）だけです。cpsbvbng26-dotcom の横断の検査（verification/check_ecosystem.js）は、まだこのリポジトリを見ていません。", "cpsbvbng26-dotcom の verification/check_ecosystem.js も、正本と写しを突き合わせます。")),
     (C[5], "the university's name in katakana", add("venues/zenodo/fields.md", "\n" + rules.dec("44K844Oz") + rules.dec("5aSn5a2m") + "\n")),
+    (C[5], "the university's name, romanised", add("venues/zenodo/fields.md", "\n" + rules.dec("emVu") + " " + rules.dec("ZGFpZ2FrdQ==") + "\n")),
+    (C[5], "the university's name in hiragana", add("venues/zenodo/fields.md", "\n" + rules.dec("44Gc44KT") + rules.dec("44Gg44GE44GM44GP") + "\n")),
+    (C[5], "the university's name in katakana, spelt out", add("venues/zenodo/fields.md", "\n" + rules.dec("44K844Oz") + rules.dec("44OA44Kk44Ks44Kv") + "\n")),
     (C[6], "an e-mail address in a template", sub("venues/ssrn/fields.md", "（本人のものを入力）", "author" + "@" + "example.org")),
     (C[7], "an action named by its version", sub(".github/workflows/check.yml", "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7", "actions/setup-python@v7")),
     (C[8], "labels.yml drops a label", sub(".github/workflows/labels.yml", 'gh label create "needs a person"', 'gh label create "person"')),
@@ -276,6 +304,9 @@ BREAKS = [
     (C[11], "a count that differs from the files", sub("README.md", "預け先は 5 か所です。", "預け先は 6 か所です。")),
     (C[11], "a number not in the ledger of numbers", add("README.en.md", "\nIt took 3 days.\n")),
     (C[12], "README.en.md loses the licences", sub("README.en.md", "(./LICENSE-CODE)", "(./LICENCE-CODE)")),
+    (C[13], "README.en.md drops a venue from the table", sub("README.en.md", "| SSRN | [fields.md](./venues/ssrn/fields.md) | [steps.md](./venues/ssrn/steps.md) | [The follow-up to the celibacy paper](./venues/ssrn/examples/celibacy-follow-up.md) |\n", "")),
+    (C[13], "README.en.md links the wrong example", sub("README.en.md", "(./venues/zenodo/examples/sophaxis-v1.0.0.md)", "(./venues/zenodo/examples/sophaxis-v1.0.1.md)")),
+    (C[13], "an example on disk that README.md does not link", add("venues/figshare/examples/another.md", "x")),
 ]
 
 if __name__ == "__main__":

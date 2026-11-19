@@ -5,9 +5,10 @@ adds the checks of its own subject, and runs them. A check is a pure function: i
 files (path -> text) and returns a list of problems. --break copies the map, breaks one thing,
 and confirms that the matching check returns at least one problem.
 
-Words that these repositories do not write (the university, the operator's other place of
-creative work, self-titles, the items of rule 10, words for a single living relative) are kept
-in base64 below, so that this file does not itself contain them.
+Words that these repositories do not write (the name of the operator's own university, in any
+spelling, the operator's other place of creative work, self-titles, the items of rule 10, words
+for a single living relative) are kept in base64 below, so that this file does not itself contain
+them. Other universities, such as the one an application is made to, are not covered.
 """
 import base64
 import hashlib
@@ -56,8 +57,10 @@ def norm(text):
 
 # ------------------------------------------------------------------ words not written
 
-SCHOOL = [re.compile(dec("emVu") + r"[\s\-_.・]*(" + dec("5aSn5a2m") + "|univ)"),
-          re.compile(dec("44K844Oz") + r"[\s・]*" + dec("5aSn5a2m")),
+# The operator's own university, in Latin letters (with its romanised Japanese name), katakana and hiragana, and its domain.
+SCHOOL = [re.compile(dec("emVu") + r"[\s\-_.・]*(" + dec("5aSn5a2m") + "|univ|" + dec("ZGFpZ2FrdQ==") + ")"),
+          re.compile(dec("44K844Oz") + r"[\s・]*(" + dec("5aSn5a2m") + "|" + dec("44OA44Kk44Ks44Kv") + ")"),
+          re.compile(dec("44Gc44KT") + r"[\s・]*(" + dec("5aSn5a2m") + "|" + dec("44Gg44GE44GM44GP") + ")"),
           re.compile(dec("emVu") + r"\s*\.\s*ac\s*\.\s*jp")]
 OTHER_PLACE = [dec(x) for x in ("bnVzcXVhbWE=", "44OM44K544Kv44Kh44Oe", "54Sh5L2V5pyJ6aiO5aOr546L5Zu9")]
 TITLES = [re.compile(x) for x in (dec("54us56uL56CU56m26ICF"), dec("aW5kZXBlbmRlbnQ=") + r"\s+" + dec("cmVzZWFyY2hlcg=="),
@@ -79,7 +82,7 @@ def words_not_written(F):
             continue
         n = norm(t)
         if any(r.search(n) for r in SCHOOL):
-            bad.append(f + ": the name of a university")
+            bad.append(f + ": the name of the operator's university")
         if any(w.casefold() in n for w in OTHER_PLACE):
             bad.append(f + ": the name of the operator's other place of creative work")
         if any(r.search(n) for r in TITLES):
@@ -106,6 +109,10 @@ def copies(F):
         bad.append("the list of copies is not the seven files")
     if not re.fullmatch(r"[0-9a-f]{40}", C.get("canonical_commit", "")):
         bad.append("the canonical commit")
+    note = " ".join(C.get("_", []))
+    # Until cpsbvbng26-dotcom's check_ecosystem.js covers this repository, the note must not say that it compares the copies.
+    if "check_ecosystem.js" in note and "まだこのリポジトリを見ていません" not in note:
+        bad.append("the note says the cross-repository check compares the copies")
     return bad
 
 

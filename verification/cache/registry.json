@@ -1,0 +1,97 @@
+{
+ "_": [
+  "Records fetched by verification/check.py --record: Crossref first, DataCite when Crossref has no record."
+ ],
+ "records": {
+  "10.1007/s10955-024-03265-0": {
+   "registry": "crossref",
+   "title": "Topological Expansive Lorenz Maps with a Hole at Critical Point",
+   "first_author": "Sun",
+   "fetched": "2026-11-19"
+  },
+  "10.1017/etds.2022.24": {
+   "registry": "crossref",
+   "title": "Critical values for the -transformation with a hole at",
+   "first_author": "ALLAART",
+   "fetched": "2026-11-19"
+  },
+  "10.1017/etds.2025.10257": {
+   "registry": "crossref",
+   "title": "The \n$\\beta $\n-transformation with a hole at \n$0$\n: the general case",
+   "first_author": "ALLAART",
+   "fetched": "2026-11-19"
+  },
+  "10.1112/blms.70344": {
+   "registry": "crossref",
+   "title": "Hausdorff dimension of double‐base expansions and binary shifts with a hole",
+   "first_author": "Lu",
+   "fetched": "2026-11-19"
+  },
+  "10.17605/osf.io/mq7za": {
+   "registry": "datacite",
+   "title": "Sophaxis: An Independent Overlay Preprint Server",
+   "first_author": "根本卓哉",
+   "fetched": "2026-11-19"
+  },
+  "10.2139/ssrn.7358779": {
+   "registry": "crossref",
+   "title": "The Nobility and Exemplarity of the Celibate Individual",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.48550/arxiv.2304.06892": {
+   "registry": "datacite",
+   "title": "Entropy plateaus, transitivity and bifurcation sets for the $β$-transformation with a hole at $0$",
+   "first_author": "Allaart",
+   "fetched": "2026-11-19"
+  },
+  "10.48550/arxiv.2604.23737": {
+   "registry": "datacite",
+   "title": "The-Hausdorff-dimension-of-the-survivor-set",
+   "first_author": "Kuang",
+   "fetched": "2026-11-19"
+  },
+  "10.5281/zenodo.22058254": {
+   "registry": "datacite",
+   "title": "The Nobility and Exemplarity of the Celibate Individual: An Antinatalist and Ascetic Reconsideration of Autonomy and Quality of Life",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.5281/zenodo.22058624": {
+   "registry": "datacite",
+   "title": "The Trinity-Infinity Framework: A Conceptual Model with Illustrative Applications in Game Theory, Mathematical Logic, and Mechanical Engineering",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.5281/zenodo.22058777": {
+   "registry": "datacite",
+   "title": "The Trinity-Infinity Framework, Series II: Extended Formalization and Further Illustrative Applications",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.5281/zenodo.22058964": {
+   "registry": "datacite",
+   "title": "The Trinity-Infinity Framework, Series III: Beyond Three — A Generalization and Retrospective",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.5281/zenodo.24033372": {
+   "registry": "datacite",
+   "title": "Sophaxis: an overlay preprint server for philosophy and mathematics",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.6084/m9.figshare.34419198": {
+   "registry": "datacite",
+   "title": "Repeated Games through a Cyclic Operator: A Golden-Ratio Threshold, Fractal Payoff Sets, and the Golden-Window Conjecture",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  },
+  "10.6084/m9.figshare.35050300": {
+   "registry": "datacite",
+   "title": "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game",
+   "first_author": "Nemoto",
+   "fetched": "2026-11-19"
+  }
+ }
+}

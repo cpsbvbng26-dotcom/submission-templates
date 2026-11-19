@@ -1,0 +1,72 @@
+{
+  "_": [
+    "埋めた例の台帳です。body_sha256 は、例の中の区切りの線（---）より後ろの、写した部分の SHA-256 です。写したときの控えと同じ値で、写したあとに一字でも変われば検査が落ちます。",
+    "dois は、例に出てくる DOI のすべてです。title は、例がその DOI の作品として名指す題で、例が題を書いていないときは reading-ledger の台帳の題です。match が exact なら登録の記録の題と同じ、prefix なら登録の記録の題がその題で始まることを求めます。",
+    "source は、番号をどこで得たかです。利用者から受け取った番号か、DataCite か Crossref で確かめた番号だけを置きます。"
+  ],
+  "examples": [
+    {
+      "file": "venues/figshare/examples/golden-window-resolution.md",
+      "venue": "figshare",
+      "work": "golden-window-resolution",
+      "status": "deposited",
+      "doi": "10.6084/m9.figshare.35050300",
+      "copied_from": "作業の控え registration/figshare-fields.md（2026-11-18）",
+      "body_sha256": "398409cdf83ad2f8c837e0c6f10f0cf7dbf824d22bdd2459cdb5b8b15147468b"
+    },
+    {
+      "file": "venues/sophaxis/examples/golden-window-resolution.md",
+      "venue": "sophaxis",
+      "work": "golden-window-resolution",
+      "status": "prepared",
+      "doi": "10.6084/m9.figshare.35050300",
+      "copied_from": "作業の控え sub-body.md（2026-11-18）",
+      "body_sha256": "fb6c6f39169a4c7b4872677cb74f84454c2f76817e9d2978c8aad703cbb7e21a"
+    },
+    {
+      "file": "venues/ssrn/examples/celibacy-follow-up.md",
+      "venue": "ssrn",
+      "work": "celibacy-follow-up",
+      "status": "prepared",
+      "doi": null,
+      "copied_from": "作業の控え celibate/out/ssrn-metadata.md（2026-11-18）",
+      "body_sha256": "ebc5c64abc6768fc71fe8e0cdc7d87fc5a1ff38f3adeceab6d04ed60c9b38589"
+    },
+    {
+      "file": "venues/philarchive/examples/celibacy-follow-up.md",
+      "venue": "philarchive",
+      "work": "celibacy-follow-up",
+      "status": "prepared",
+      "doi": null,
+      "copied_from": "作業の控え celibate/out/philarchive-metadata.md（2026-11-18）",
+      "body_sha256": "dbae7f1bcb1248f68b32229c96c8e848c44df7e3ef78dcac6f1ed32e2713abcf"
+    },
+    {
+      "file": "venues/zenodo/examples/sophaxis-v1.0.0.md",
+      "venue": "zenodo",
+      "work": "sophaxis v1.0.0",
+      "status": "deposited",
+      "doi": "10.5281/zenodo.24033372",
+      "copied_from": "sophaxis のタグ v1.0.0 の .zenodo.json",
+      "source_raw": "https://raw.githubusercontent.com/cpsbvbng26-dotcom/sophaxis/b8f9fe88f782ba35e04bfa0347efb3ab386b74c8/.zenodo.json",
+      "body_sha256": "148d06b71b068bb32461bcc1202f32cccabe58a0ab6c61565de64de51bcedb39"
+    }
+  ],
+  "dois": {
+    "10.6084/m9.figshare.35050300": { "title": "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game", "first_author": "Nemoto", "match": "exact", "source": "2026-11-18 に利用者から受け取った番号" },
+    "10.6084/m9.figshare.34419198": { "title": "Repeated Games through a Cyclic Operator: A Golden-Ratio Threshold, Fractal Payoff Sets, and the Golden-Window Conjecture", "first_author": "Nemoto", "match": "exact", "source": "利用者から受け取った番号（cpsbvbng26-dotcom の docs/figshare.md）" },
+    "10.1112/blms.70344": { "title": "Hausdorff dimension of double-base expansions and binary shifts with a hole", "first_author": "Lu", "match": "exact", "source": "Crossref（reading-ledger の台帳の LSZ）" },
+    "10.1017/etds.2022.24": { "title": "Critical values for the β-transformation with a hole at 0", "first_author": "Allaart", "match": "exact", "source": "Crossref（reading-ledger の台帳の AKcrit）" },
+    "10.1017/etds.2025.10257": { "title": "The β-transformation with a hole at 0: the general case", "first_author": "Allaart", "match": "exact", "source": "Crossref（reading-ledger の台帳の AKgen）" },
+    "10.48550/arxiv.2304.06892": { "title": "Entropy plateaus, transitivity and bifurcation sets for the β-transformation with a hole at 0", "first_author": "Allaart", "match": "exact", "source": "DataCite（reading-ledger の台帳の AKplat）" },
+    "10.48550/arxiv.2604.23737": { "title": "The Hausdorff dimension of the survivor set", "first_author": "Kuang", "match": "exact", "source": "DataCite（reading-ledger の台帳の KLX）" },
+    "10.1007/s10955-024-03265-0": { "title": "Topological expansive Lorenz maps with a hole at critical point", "first_author": "Sun", "match": "exact", "source": "Crossref（reading-ledger の台帳の SLD）" },
+    "10.5281/zenodo.22058624": { "title": "The Trinity-Infinity Framework: A Conceptual Model with Illustrative Applications in Game Theory, Mathematical Logic, and Mechanical Engineering", "first_author": "Nemoto", "match": "exact", "source": "利用者から受け取った番号（cpsbvbng26-dotcom の docs/doi-index.md の 5 行目）" },
+    "10.5281/zenodo.22058777": { "title": "The Trinity-Infinity Framework, Series II: Extended Formalization and Further Illustrative Applications", "first_author": "Nemoto", "match": "exact", "source": "利用者から受け取った番号（docs/doi-index.md の 6 行目）" },
+    "10.5281/zenodo.22058964": { "title": "The Trinity-Infinity Framework, Series III: Beyond Three — A Generalization and Retrospective", "first_author": "Nemoto", "match": "exact", "source": "利用者から受け取った番号（docs/doi-index.md の 7 行目）" },
+    "10.5281/zenodo.22058254": { "title": "The Nobility and Exemplarity of the Celibate Individual", "first_author": "Nemoto", "match": "prefix", "source": "利用者から受け取った番号（docs/doi-index.md の 4 行目）。登録の記録の題は副題が続く" },
+    "10.2139/ssrn.7358779": { "title": "The Nobility and Exemplarity of the Celibate Individual", "first_author": "Nemoto", "match": "exact", "source": "利用者から受け取った番号（docs/doi-index.md の「別の所在にある同一本文」）" },
+    "10.5281/zenodo.24033372": { "title": "Sophaxis: an overlay preprint server for philosophy and mathematics", "first_author": "Nemoto", "match": "exact", "source": "利用者から受け取った番号（docs/doi-index.md の R13）" },
+    "10.17605/osf.io/mq7za": { "title": "Sophaxis: An Independent Overlay Preprint Server", "first_author": "根本卓哉", "match": "exact", "source": "docs/doi-index.md の O1（2026-11-12 に DataCite で確かめた）。DataCite の記録は著者を漢字で持つ" }
+  }
+}

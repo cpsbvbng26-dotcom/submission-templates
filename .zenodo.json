@@ -1,0 +1,36 @@
+{
+  "title": "submission-templates: the field texts and steps used when depositing works at Figshare, Sophaxis, SSRN, PhilArchive and Zenodo",
+  "description": "<p>The field texts and the steps used when depositing works, one folder per venue (Figshare, Sophaxis, SSRN, PhilArchive, Zenodo). The texts of each work are turned into templates with placeholders; every field is marked as verified on the venue's page or as from memory; the disclosure of the use of a language model is a fixed block that every template carries; a field that asks for an e-mail address says only that one's own address is entered. The filled examples are kept as they were copied, with the SHA-256 of each copy, and every DOI in them is resolved at Crossref or DataCite and its title compared.</p><p>論文やリポジトリを預け先に出したときの欄の文と手順を、預け先ごとに残す雛形集です。</p>",
+  "upload_type": "other",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "language": "jpn",
+  "creators": [
+    {
+      "name": "Nemoto, Takuya",
+      "orcid": "0009-0000-1406-0547"
+    }
+  ],
+  "keywords": [
+    "preprint",
+    "repository",
+    "metadata",
+    "DOI",
+    "Zenodo",
+    "ORCID",
+    "scholarly communication"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.6084/m9.figshare.35050300",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.24033372",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "Claude Code (Anthropic) was used to write the templates, the checks and the text, at the author's request. The filled examples are copies of texts written for the deposits. The author is responsible for the content. Claude is not an author. The templates, the examples and the text are CC BY 4.0 (LICENSE); the check scripts are MIT (LICENSE-CODE). The licence field of this record covers the templates, the examples and the text only. Texts by others that this repository quotes, or keeps to verify its quotations, are not licensed under CC BY 4.0 or the MIT License and remain their owners'."
+}

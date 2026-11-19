@@ -4,7 +4,8 @@
 埋めた例は [examples/celibacy-follow-up.md](./examples/celibacy-follow-up.md) にあります。
 SSRN の頁（www.ssrn.com、papers.ssrn.com、hq.ssrn.com）は、この作業の環境から届きません。
 そのため、欄の名は記憶によります。
-分類のうち、運営者の記録で確かめた区分は、Continental Philosophy だけです。
+分類のうち、運営者の記録にある区分は、Continental Philosophy だけです。
+その記録は cpsbvbng26-dotcom の `docs/external-evaluations.md` の「出した分野」にあり、区分と網の名は検索結果から取ったと書いています。
 
 ## Title
 
@@ -48,7 +49,7 @@ PDF の要旨と同じ文にします。免責の文があれば、末尾に残�
 
 ## Classification (networks and eJournals)
 
-確かめ：場の頁で確かめた（Philosophy Research Network の Continental Philosophy だけ。原論文の区分として、cpsbvbng26-dotcom の README の記録にある。ほかの区分の名は記憶による）
+確かめ：運営者の記録による（Philosophy Research Network の Continental Philosophy だけ。原論文の区分として、cpsbvbng26-dotcom の docs/external-evaluations.md の「出した分野」にある。SSRN の頁では確かめていない。ほかの区分の名は記憶による）
 
 {{CLASSIFICATION}}
 

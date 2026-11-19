@@ -199,6 +199,7 @@ CHECKS = [
     ("The writing rules: です/ます, no second person, no bold, one dash per paragraph, short sentences", lambda F: rules.prose(F, PROSE)),
     ("Every number in prose is in the ledger of numbers, and every count matches the files", lambda F: rules.numbers(F, PROSE, COUNTERS)),
     ("README.md and README.en.md link each other, disclose the language model and name the licences", rules.readme_pair),
+    (".zenodo.json: one creator with the ORCID iD, the licence of LICENSE, the disclosure, the licence sentence, related identifiers found in the repository", rules.zenodo),
 ]
 
 
@@ -276,6 +277,9 @@ BREAKS = [
     (C[11], "a count that differs from the files", sub("README.md", "預け先は 5 か所です。", "預け先は 6 か所です。")),
     (C[11], "a number not in the ledger of numbers", add("README.en.md", "\nIt took 3 days.\n")),
     (C[12], "README.en.md loses the licences", sub("README.en.md", "(./LICENSE-CODE)", "(./LICENCE-CODE)")),
+    (C[13], ".zenodo.json loses the disclosure", sub(".zenodo.json", "Claude is not an author.", "Claude helped.")),
+    (C[13], ".zenodo.json gives an affiliation", sub(".zenodo.json", '"orcid": "0009-0000-1406-0547"', '"orcid": "0009-0000-1406-0547", "affiliation": "x"')),
+    (C[13], ".zenodo.json names the MIT licence", sub(".zenodo.json", '"license": "cc-by-4.0"', '"license": "mit"')),
 ]
 
 if __name__ == "__main__":

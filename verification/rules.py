@@ -370,3 +370,43 @@ def add(f, s):
     def mut(G):
         G[f] = G.get(f, "") + s
     return mut
+
+
+# ------------------------------------------------------------------ .zenodo.json
+
+ZENODO_UPLOAD = ("software", "dataset", "other")
+LICENCE_SENTENCE = re.compile(r"The licence field of this record covers (.+?) only\.")
+
+
+def zenodo(F):
+    """.zenodo.json, read by Zenodo's GitHub integration when a release is made: one creator with the ORCID iD and no
+    affiliation, the licence of LICENSE, the disclosure of the language model, a sentence on what the licence field covers,
+    and related identifiers that already appear elsewhere in the repository."""
+    z = jload(F, ".zenodo.json")
+    if z is None:
+        return [".zenodo.json cannot be read"]
+    bad = []
+    if z.get("creators") != [{"name": "Nemoto, Takuya", "orcid": "0009-0000-1406-0547"}]:
+        bad.append("creators: one creator, Nemoto, Takuya, with the ORCID iD and no affiliation")
+    lic = F.get("LICENSE", "")
+    want = "cc-by-4.0" if lic.startswith("Creative Commons Attribution 4.0") else "mit" if lic.startswith("MIT") else "?"
+    if z.get("license") != want:
+        bad.append("license %s, LICENSE says %s" % (z.get("license"), want))
+    if z.get("upload_type") not in ZENODO_UPLOAD or z.get("access_right") != "open":
+        bad.append("upload_type or access_right")
+    notes = z.get("notes", "")
+    if not notes.startswith("Claude Code (Anthropic) was used ") or "The author is responsible for the content. Claude is not an author." not in notes:
+        bad.append("notes: the disclosure block")
+    if not LICENCE_SENTENCE.search(notes) or "CC BY 4.0 (LICENSE)" not in notes or "MIT (LICENSE-CODE)" not in notes:
+        bad.append("notes: which part is CC BY 4.0, which is MIT, and what the licence field covers")
+    if not z.get("keywords") or not z.get("title", "").startswith(z.get("title", "").split(":")[0]) or not z.get("description"):
+        bad.append("title, description or keywords")
+    rest = "\n".join(t for f, t in F.items() if f != ".zenodo.json")
+    for r in z.get("related_identifiers", []):
+        if r.get("scheme") not in ("doi", "url") or not r.get("relation"):
+            bad.append("related_identifiers: scheme or relation")
+        if r.get("identifier", "").lower() not in rest.lower():
+            bad.append("related_identifiers: %s appears nowhere else in the repository" % r.get("identifier"))
+    if re.search(r"affiliation", json.dumps(z), re.I) and "no affiliation" not in json.dumps(z):
+        bad.append("an affiliation")
+    return bad

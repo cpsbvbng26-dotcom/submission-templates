@@ -1,0 +1,9 @@
+# GitHub Actions の版の更新を知らせる。GitHub の無料の機能で、PR を開くだけ。
+# 外のアクションはコミットの値で固め、版を注釈に書く。Dependabot が上げるときも、この形のまま上げる。
+# その PR は、検査（check.yml）が通ってからマージする。
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

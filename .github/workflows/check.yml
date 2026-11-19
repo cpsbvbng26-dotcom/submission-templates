@@ -1,0 +1,43 @@
+name: 検査
+
+# push と PR のたびに回す。雛形・例・控えた登録の記録・書き方・写しを verification/check.py が確かめ、
+# 続けて同じ検査を一つずつ壊し、どれも落ちることを確かめる（--break）。この仕事は外へ出ない。
+# もう一つの仕事（online）は、例に出てくる DOI を Crossref と DataCite で引き直し、リポジトリから写した例を
+# GitHub から記したコミットの版で取り寄せ直して突き合わせる。週に一度も回す。登録の記録が変われば、ここで落ちる。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 4 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: 雛形・例・書き方・写し・壊して確かめる（外へ出ない）
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.11'
+      - run: python verification/check.py
+      - run: python verification/check.py --break
+  online:
+    name: DOI と写した例を取り寄せ直して突き合わせる
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.11'
+      - run: python verification/check.py --online

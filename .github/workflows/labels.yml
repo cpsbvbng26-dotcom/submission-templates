@@ -1,0 +1,28 @@
+name: ラベル
+
+# 誤りの知らせの様式と、突き合わせの受付が使うラベルをそろえる。main でこのファイルが変わったときと、手で起こしたときに回る。
+# 本文の空の issue に答える仕事（empty-issue.yml）は、自分のラベルを自分で作る。
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/labels.yml']
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  labels:
+    name: 様式が使うラベルをそろえる
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh label create "erratum" --color 8a6d12 --description "誤りの知らせ（error-report.yml）" --force
+          gh label create "quote verified" --color 2f6f4e --description "突き合わせの受付：引いた語が所にあった" --force
+          gh label create "not verified" --color 9a6700 --description "突き合わせの受付：引いた語が所に無かった" --force
+          gh label create "not checked" --color 6e7781 --description "突き合わせの受付：確かめられなかった" --force
+          gh label create "needs a person" --color 7a1f1f --description "人が読む（法令が受けて扱うことを求める求めかもしれない）" --force

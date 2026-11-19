@@ -1,7 +1,7 @@
 {
   "_": [
     "cpsbvbng26-dotcom の正本と一字一句同じ写しです。sha256 は、写した時点の正本のファイルの SHA-256 です。ここでは直しません。正本を直したら写し直し、ここの値も変えます。",
-    "LICENSE と LICENSE-CODE も、cpsbvbng26-dotcom と同じ全文です。cpsbvbng26-dotcom の verification/check_ecosystem.js も、正本と写しを突き合わせます。"
+    "LICENSE と LICENSE-CODE も、cpsbvbng26-dotcom と同じ全文です。いま正本と写しを突き合わせるのは、このリポジトリの検査（verification/rules.py の copies）だけです。cpsbvbng26-dotcom の横断の検査（verification/check_ecosystem.js）は、まだこのリポジトリを見ていません。"
   ],
   "canonical": "cpsbvbng26-dotcom",
   "canonical_commit": "49e88263b854bff9dac2b0d44c5f0da446a2a608",

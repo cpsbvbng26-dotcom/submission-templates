@@ -2,7 +2,9 @@
 
 Zenodo の GitHub の連携は、GitHub の Release から記録を作るときに、リポジトリの根にある `.zenodo.json` を読みます。
 欄の名と書き方は、運営者のリポジトリの `.zenodo.json`（cpsbvbng26-dotcom、errata-check、self-correction、sophaxis、deposit-check、trinity-operator など）の書き方に合わせました。
-zenodo.org の手引きの頁は、この作業の環境から届きません。
+Zenodo の手引きの頁（help.zenodo.org）は、この作業の環境からの接続を断られます（2026-11-19、中継が 403 を返す）。
+zenodo.org の API（`https://zenodo.org/api/records/<番号>`）は答えます。
+API が返すのは記録の中身で、`.zenodo.json` の欄の書き方の手引きではありません。
 そのため、欄の名はどれも記憶によります。
 この書き方の `.zenodo.json` から記録が作られた例は、[examples/sophaxis-v1.0.0.md](./examples/sophaxis-v1.0.0.md) にあります。
 

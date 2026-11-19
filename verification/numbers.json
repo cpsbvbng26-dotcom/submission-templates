@@ -1,0 +1,23 @@
+{
+  "_": [
+    "散文に書いた数の台帳です（cpsbvbng26-dotcom の決めごと 5）。verification/check.py は README.md と README.en.md から数を拾い、ここのどれかに当たらなければ落ちます。",
+    "dates は、書いてよい日です。fixed は、決めた値とその形です。counts は、数えて確かめる数で、re の一つ目の括弧が数、count が数え方の名です。"
+  ],
+  "dates": {
+    "2026-11-18": "golden-window-resolution の稿を Figshare に出した日。欄の文と手順の控えを作った日"
+  },
+  "fixed": [
+    { "re": "CC BY 4\\.0", "why": "LICENSE の版" },
+    { "re": "0009-0000-1406-0547", "check": "orcid", "why": "運営者の ORCID iD" },
+    { "re": "SHA-256", "why": "ハッシュの名" },
+    { "re": "v1\\.0\\.0", "why": "sophaxis の版の名（Zenodo の記録 R13）" }
+  ],
+  "counts": [
+    { "re": "預け先は (\\d+) か所", "count": "venues" },
+    { "re": "There are (\\d+) venues", "count": "venues" },
+    { "re": "埋めた例は (\\d+) 本", "count": "examples" },
+    { "re": "There are (\\d+) examples", "count": "examples" },
+    { "re": "出したものの例は (\\d+) 本", "count": "deposited" },
+    { "re": "of which (\\d+) are of deposits", "count": "deposited" }
+  ]
+}

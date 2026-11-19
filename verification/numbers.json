@@ -4,7 +4,8 @@
     "dates は、書いてよい日です。fixed は、決めた値とその形です。counts は、数えて確かめる数で、re の一つ目の括弧が数、count が数え方の名です。"
   ],
   "dates": {
-    "2026-11-18": "golden-window-resolution の稿を Figshare に出した日。欄の文と手順の控えを作った日"
+    "2026-11-18": "golden-window-resolution の稿を Figshare に出した日。欄の文と手順の控えを作った日",
+    "2026-11-19": "PhilArchive の例の分類の名の頁を、philpapers.org から取り寄せ直した日"
   },
   "fixed": [
     { "re": "CC BY 4\\.0", "why": "LICENSE の版" },

@@ -22,11 +22,14 @@
 ## 雛形の印
 
 雛形の欄には、どれも確かめ方の印が付いています。
-印は、場の頁で確かめた、か、記憶による、のどちらかです。
-Figshare、SSRN、PhilArchive、Zenodo の案内の頁は、この作業の環境から届きません。
+印は、場の頁で確かめた、運営者の記録による、記憶による、のどれかです。
+Figshare と SSRN の頁、PhilArchive の案内の頁、Zenodo の手引きの頁（help.zenodo.org）は、この作業の環境から読めません。
+zenodo.org の API は答えますが、欄の書き方の手引きは返しません。
 そのため、それらの欄の大半は記憶によります。
 Sophaxis の欄は、sophaxis のリポジトリにある投稿の様式で確かめました。
-PhilArchive の分類の名は、philpapers.org の分類の頁で確かめました。
+PhilArchive の分類の名は、例に挙げたものだけを、philpapers.org の分類の頁の題で確かめました。
+確かめたのは 2026-11-18 で、2026-11-19 に同じ頁を取り寄せ直しました。
+SSRN の分類の Continental Philosophy は、cpsbvbng26-dotcom の記録によります。
 欄に埋める所は `{{TITLE}}` のような大文字の名で示します。
 
 ## 開示の段

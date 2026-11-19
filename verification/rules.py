@@ -406,14 +406,28 @@ def zenodo(F):
         bad.append("notes: the disclosure block")
     if not LICENCE_SENTENCE.search(notes) or "CC BY 4.0 (LICENSE)" not in notes or "MIT (LICENSE-CODE)" not in notes:
         bad.append("notes: which part is CC BY 4.0, which is MIT, and what the licence field covers")
-    if not z.get("keywords") or not z.get("title", "").startswith(z.get("title", "").split(":")[0]) or not z.get("description"):
-        bad.append("title, description or keywords")
+    # The title starts with the name of the repository, as README.md's first heading gives it, then ": " and a description.
+    m = re.match(r"# ([a-z0-9]+(?:-[a-z0-9]+)*)\n", F.get("README.md", ""))
+    title = z.get("title", "")
+    if not m or not title.startswith(m.group(1) + ": ") or len(title) <= len(m.group(1)) + 2:
+        bad.append("title: does not start with the name of the repository and a colon")
+    if not z.get("keywords") or not z.get("description"):
+        bad.append("description or keywords")
     rest = "\n".join(t for f, t in F.items() if f != ".zenodo.json")
     for r in z.get("related_identifiers", []):
         if r.get("scheme") not in ("doi", "url") or not r.get("relation"):
             bad.append("related_identifiers: scheme or relation")
         if r.get("identifier", "").lower() not in rest.lower():
             bad.append("related_identifiers: %s appears nowhere else in the repository" % r.get("identifier"))
-    if re.search(r"affiliation", json.dumps(z), re.I) and "no affiliation" not in json.dumps(z):
+    # No affiliation anywhere: not on a creator, a contributor or any other object of the record, whatever the notes say.
+    def keys(x):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                yield k
+                yield from keys(v)
+        elif isinstance(x, list):
+            for v in x:
+                yield from keys(v)
+    if any(str(k).casefold() == "affiliation" for k in keys(z)):
         bad.append("an affiliation")
     return bad

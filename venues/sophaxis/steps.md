@@ -6,7 +6,7 @@
 規程の行の番号は、変わりうるので書きません。
 欄に貼る文は [fields.md](./fields.md) にあります。
 
-1. 先に預け先（Figshare・Zenodo など）で公開し、DOI を得る。Sophaxis は DOI を持つ預け先の作品だけを扱う。出典：`policies/submission.md`。
+1. 先に預け先で公開し、DOI を得る。Sophaxis は DOI を持つ預け先の作品だけを扱う。2026-12-07 からは、その日以後に issue を開いた新しい作品は、SSRN・arXiv・Jxiv のものだけを扱う。それより前に開いた issue は、Zenodo などほかの預け先のものも扱う。出典：`policies/submission.md`。
 2. DOI の登録情報のライセンスが、Sophaxis の受け付けるものかを見る。出典：`policies/submission.md`、`submission.yml` の doi の欄の説明。
 3. 投稿の日を決める。2026-11-23 からは、最初の DOI の登録から一定の期間を過ぎた作品だけが載る。期間と数え方は `policies/submission.md` で見る。
 4. ORCID の記録に、issue を開く GitHub のアカウントの URL があることを見る。自動の検査が、これで著者であることを確かめる。出典：`submission.yml` の冒頭の説明。
